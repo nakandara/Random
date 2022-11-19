@@ -18,33 +18,33 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-    return (
-      <MenuItem
-        active={selected === title}
-        style={{
-          color: colors.grey[100],
-        }}
-        onClick={() => setSelected(title)}
-        icon={icon}
-      >
-        <Typography>{title}</Typography>
-        <Link to={to} />
-      </MenuItem>
-    );
-  };
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  return (
+    <MenuItem
+      active={selected === title}
+      style={{
+        color: colors.grey[100],
+      }}
+      onClick={() => setSelected(title)}
+      icon={icon}
+    >
+      <Typography>{title}</Typography>
+      <Link to={to} />
+    </MenuItem>
+  );
+};
 
 
 const Sidebar = () => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-    const [isCollapsed, setIsCollapsed] = useState(false);
-    const [selected, setSelected] = useState("Dashboard");
-  
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [selected, setSelected] = useState("Dashboard");
+
   return (
     <Box
-    sx={{
+      sx={{
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
         },
@@ -62,8 +62,8 @@ const Sidebar = () => {
         },
       }}
     >
-<ProSidebarProvider>
-<Menu iconShape="square">
+      <ProSidebarProvider>
+        <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
@@ -212,10 +212,10 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-           
+
           </Box>
         </Menu>
-</ProSidebarProvider>
+      </ProSidebarProvider>
     </Box>
   )
 }
