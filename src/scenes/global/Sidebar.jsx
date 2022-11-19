@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { ProSidebarProvider, Menu, MenuItem } from "react-pro-sidebar";
+import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
+import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
@@ -14,37 +15,35 @@ import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-
-
+import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-    return (
-      <MenuItem
-        active={selected === title}
-        style={{
-          color: colors.grey[100],
-        }}
-        onClick={() => setSelected(title)}
-        icon={icon}
-      >
-        <Typography>{title}</Typography>
-        <Link to={to} />
-      </MenuItem>
-    );
-  };
-
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  return (
+    <MenuItem
+      active={selected === title}
+      style={{
+        color: colors.grey[100],
+      }}
+      onClick={() => setSelected(title)}
+      icon={icon}
+    >
+      <Typography>{title}</Typography>
+      <Link to={to} />
+    </MenuItem>
+  );
+};
 
 const Sidebar = () => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-    const [isCollapsed, setIsCollapsed] = useState(false);
-    const [selected, setSelected] = useState("Dashboard");
-  
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [selected, setSelected] = useState("Dashboard");
+
   return (
     <Box
-    sx={{
+      sx={{
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
         },
@@ -62,8 +61,8 @@ const Sidebar = () => {
         },
       }}
     >
-<ProSidebarProvider>
-<Menu iconShape="square">
+      <ProSidebar collapsed={isCollapsed}>
+        <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
@@ -97,7 +96,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.jpeg`}
+                  src={`../../assets/user.png`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -108,7 +107,7 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Pramod Niroshan
+                  Pramod
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
                   VP  Admin
@@ -212,12 +211,18 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-           
+            <Item
+              title="Geography Chart"
+              to="/geography"
+              icon={<MapOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
           </Box>
         </Menu>
-</ProSidebarProvider>
+      </ProSidebar>
     </Box>
-  )
-}
+  );
+};
 
 export default Sidebar;
