@@ -5,6 +5,8 @@ import Dashboard from "./scenes/dashboard";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import SignInSide from "./components/Logins/SignInSide";
+import Team from './scenes/manageTeam'
+import ProtectedRoute from "./Routes/ProtectedRoute";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -19,8 +21,9 @@ function App() {
           <main className="content">
             <Topbar />
             <Routes>
-              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/" element={<SignInSide />} />
+              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+              <Route path="/team" element={<ProtectedRoute><Team /></ProtectedRoute>} />
             </Routes>
           </main>
         </div>

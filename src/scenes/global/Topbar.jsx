@@ -25,7 +25,7 @@ const Topbar = () => {
 },[])
 
   return (
-    <div>
+    <>
       {isLoginTopba?<Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
       <Box
@@ -59,7 +59,7 @@ const Topbar = () => {
         </IconButton>
       </Box>
     </Box>:null}
-    </div>
+    </>
     
   );
 };

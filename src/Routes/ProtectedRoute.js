@@ -6,19 +6,12 @@ const ProtectedRoute = ({ children }) => {
 
     const { user, setUser } = useContext(userAuthContext);
 
+    if (!user) {
+        return <Navigate to="/" />
+    }
+    return children;
 
-    useEffect(() => {
-        const role = localStorage.getItem('user')
-        console.log(role);
-        setUser(role)
-    }, [user]);
 
-  
-    return (
-        <div>
-           
-        </div>
-    );
 }
 
 export default ProtectedRoute
