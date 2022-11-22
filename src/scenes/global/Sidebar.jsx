@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -40,9 +40,30 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const [isLogin, setIsLogin] = useState(false)
+
+ 
+  useEffect(() => {
+    Loading()
+},[]);
+
+
+
+
+const Loading = () => {
+  const user = localStorage.getItem('user')
+ 
+  if(user){
+    setIsLogin(true)
+    
+}
+}
+
+
 
   return (
-    <Box
+    <div>
+      {isLogin? <Box
       sx={{
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
@@ -221,7 +242,10 @@ const Sidebar = () => {
           </Box>
         </Menu>
       </ProSidebar>
-    </Box>
+    </Box>:null}
+ 
+    </div>
+   
   );
 };
 

@@ -1,4 +1,6 @@
-import * as React from 'react';
+import React, { useState,useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthService from "../Services/auth.service"
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,8 +14,12 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { userAuthContext } from '../../context/UserAuthContext'
+// const API_URL = "/auth"
+
 
 function Copyright(props) {
+
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
@@ -29,6 +35,11 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
+  const { trueLog, setTrueLog  } = useContext(userAuthContext);
+
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -37,7 +48,29 @@ export default function SignInSide() {
       password: data.get('password'),
     });
   };
-
+const handleLogin = async (e) => {
+  
+    e.preventDefault();
+    
+    setTrueLog(true)
+    try {
+      await AuthService.Login(userName, password).then(
+        
+        () => {
+          
+          navigate("/dashboard");
+          
+           window.location.reload();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -72,7 +105,7 @@ export default function SignInSide() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -82,6 +115,7 @@ export default function SignInSide() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                onChange={(e) => setUserName(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -92,6 +126,7 @@ export default function SignInSide() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => setPassword(e.target.value)}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

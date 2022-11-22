@@ -1,11 +1,15 @@
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import Config from '../../config'
+import * as types from '../../config'
 
-const API_URL = "/users";
 
-const signup = async (email, password) => {
+const API_URL = types.REACT_APP_BASE_URL;
+
+const signup = async (userName, password) => {
     const response = await axios
         .post(API_URL + "/create", {
-            email,
+            userName,
             password,
         });
     if (response.data.accessToken) {
@@ -14,14 +18,18 @@ const signup = async (email, password) => {
     return response.data;
 };
 
-const login = async (email, password) => {
+const Login = async (userName, password) => {
+    
+//  const {user,setUser} = useContext(userAuthContext)
     const response = await axios
         .post(API_URL + "/login", {
-            email,
+            userName,
             password,
         });
-    if (response.data.accessToken) {
+    
+    if (response.data.token) {
         localStorage.setItem("user", JSON.stringify(response.data));
+        //  setUser(response.data.token)
     }
     return response.data;
 };
@@ -36,7 +44,8 @@ const getCurrentUser = () => {
 };
 const authService = {
     signup,
-    login,
+    Login,
     logout,
     getCurrentUser,
 };
+export default authService;
