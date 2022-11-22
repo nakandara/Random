@@ -1,5 +1,5 @@
 import { Box, IconButton, useTheme } from "@mui/material";
-import { useContext } from "react";
+import { useContext ,useState,useEffect} from "react";
 import { ColorModeContext, tokens } from "../../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -13,9 +13,20 @@ const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const [isLoginTopba, setIsLoginTopba] = useState(false)
+
+  useEffect(() => {
+    const user = localStorage.getItem('user')
+    if(user){
+      setIsLoginTopba(true)
+  }
+
+
+},[])
 
   return (
-    <Box display="flex" justifyContent="space-between" p={2}>
+    <div>
+      {isLoginTopba?<Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
       <Box
         display="flex"
@@ -47,7 +58,9 @@ const Topbar = () => {
           <PersonOutlinedIcon />
         </IconButton>
       </Box>
-    </Box>
+    </Box>:null}
+    </div>
+    
   );
 };
 

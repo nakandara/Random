@@ -1,8 +1,11 @@
 import React from 'react'
-
+import Sidebar from '../global/Sidebar';
+import Topbar from '../global/Topbar';
  const Dashboard = () => {
   return (
-    <div>Sg Client Bord</div>
+    <div className="app">
+     dashboard
+    </div>
   )
 }
 
