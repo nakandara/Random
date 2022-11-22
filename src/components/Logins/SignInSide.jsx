@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState,useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../Services/auth.service"
 import Avatar from '@mui/material/Avatar';
@@ -37,8 +37,10 @@ const theme = createTheme();
 export default function SignInSide() {
   const { trueLog, setTrueLog  } = useContext(userAuthContext);
 
+
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -70,9 +72,24 @@ const handleLogin = async (e) => {
       console.log(err);
     }
   }
+   
+  useEffect(() => {
+    Loading()
+},[]);
+
+  
+  const Loading = () => {
+    const user = localStorage.getItem('user')
+   
+    if(user){
+      setIsAuthenticated(true)
+      
+  }
+  }
   
   return (
-    <ThemeProvider theme={theme}>
+    <div>
+      {isAuthenticated?null:<ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -157,6 +174,7 @@ const handleLogin = async (e) => {
           </Box>
         </Grid>
       </Grid>
-    </ThemeProvider>
+    </ThemeProvider>}
+    </div>
   );
 }
