@@ -1,9 +1,9 @@
 import React from 'react'
 
-const  index =()=> {
+const  manageTeam =()=> {
   return (
     <div>Team</div>
   )
 }
 
-export default index
+export default manageTeam

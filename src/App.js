@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
@@ -10,7 +10,6 @@ import ProtectedRoute from "./Routes/ProtectedRoute";
 
 function App() {
   const [theme, colorMode] = useMode();
-  // const [isSidebar, setIsSidebar] = useState(true);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -21,9 +20,14 @@ function App() {
           <main className="content">
             <Topbar />
             <Routes>
-              <Route path="/" element={<SignInSide />} />
-              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-              <Route path="/team" element={<ProtectedRoute><Team /></ProtectedRoute>} />
+
+              <Route element={<ProtectedRoute />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/team" element={<Team />} />
+              </Route>
+
+              <Route path="/login" element={<SignInSide />} />
+
             </Routes>
           </main>
         </div>
@@ -31,5 +35,4 @@ function App() {
     </ColorModeContext.Provider>
   );
 }
-
 export default App;

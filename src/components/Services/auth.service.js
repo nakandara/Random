@@ -19,25 +19,26 @@ const signup = async (userName, password) => {
 };
 
 const Login = async (userName, password) => {
-    
-//  const {user,setUser} = useContext(userAuthContext)
+
+    //  const {user,setUser} = useContext(userAuthContext)
     const response = await axios
         .post(API_URL + "/login", {
             userName,
             password,
         });
-    
+
     if (response.data.token) {
+
         localStorage.setItem("user", JSON.stringify(response.data));
         //  setUser(response.data.token)
     }
-   
     return response.data;
 };
 
 
 const logout = () => {
     localStorage.removeItem("user");
+
 };
 
 const getCurrentUser = () => {

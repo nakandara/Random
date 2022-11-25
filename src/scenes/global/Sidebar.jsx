@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -16,6 +16,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import { userAuthContext } from "../../context/UserAuthContext";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -36,6 +37,8 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 const Sidebar = () => {
+  const ABcd = useContext(userAuthContext);
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -45,19 +48,29 @@ const Sidebar = () => {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
+    if (ABcd?.user?.token) {
+      setIsLogin(true);
+ 
+    }
     Loading();
-  }, [isLogin]);
+  }, [ABcd?.user?.token]);
+
 
   const Loading = useCallback(() => {
-    const user = localStorage.getItem("user");
-    const selectRoleuser = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      setIsLogin(true);
-      setUserName(selectRoleuser.userName);
+    let user = JSON.parse(localStorage.getItem("user"));
+    let selectRoleuser = JSON.parse(localStorage.getItem("user"));
+    if (!user && ABcd?.user ) {
+      user = ABcd.user;
+      selectRoleuser = ABcd.user;
+      setIsLogin(true)
+    }
 
+
+    if (user) {
+      setUserName(selectRoleuser.userName);
+      setIsLogin(true)
       switch (selectRoleuser.userType) {
         case "ADMIN":
-          console.log("ADIMN LOG");
           setRole("ADIMN");
           break;
         case "TEACHER":
@@ -159,6 +172,7 @@ const Sidebar = () => {
                 >
                   Data
                 </Typography>
+                
                 <Item
                   title="Manage Team"
                   to="/team"

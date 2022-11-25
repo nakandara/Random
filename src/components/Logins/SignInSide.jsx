@@ -14,8 +14,9 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { userAuthContext } from "../../context/UserAuthContext";
+
 import Alert from "@mui/material/Alert";
+import { userAuthContext } from "../../context/UserAuthContext";
 // const API_URL = "/auth"
 
 function Copyright(props) {
@@ -34,7 +35,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
-  const { trueLog, setTrueLog } = useContext(userAuthContext);
+  const { setUser } = useContext(userAuthContext);
 
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -53,21 +54,15 @@ export default function SignInSide() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    setTrueLog(true);
+    // setTrueLog(true);
     try {
-      await AuthService.Login(userName, password).then(
-        () => {
-          navigate("/dashboard");
-
-          window.location.reload();
-        },
-        (error) => {
-          console.log(error);
-          setError("Invaid User Name Or Password");
-        }
-      );
+      const loginData = await AuthService.Login(userName, password);
+    
+      setUser(loginData);
+      navigate("/dashboard");
     } catch (err) {
       console.log(err);
+      setError("Invaid User Name Or Password");
     }
   };
 
@@ -80,6 +75,7 @@ export default function SignInSide() {
 
     if (user) {
       setIsAuthenticated(true);
+      navigate("/dashboard")
     }
   };
 
