@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthService from "../Services/auth.service";
+import AuthService from "../services/auth.service";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -16,7 +16,7 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Alert from "@mui/material/Alert";
-import { userAuthContext } from "../../context/UserAuthContext";
+import { userAuthContext } from "../context/UserAuthContext";
 // const API_URL = "/auth"
 
 function Copyright(props) {
@@ -57,9 +57,9 @@ export default function SignInSide() {
     // setTrueLog(true);
     try {
       const loginData = await AuthService.Login(userName, password);
-    
+
       setUser(loginData);
-      navigate("/dashboard");
+      navigate("/team");
     } catch (err) {
       console.log(err);
       setError("Invaid User Name Or Password");
@@ -75,7 +75,7 @@ export default function SignInSide() {
 
     if (user) {
       setIsAuthenticated(true);
-      navigate("/dashboard")
+      navigate("/dashboard");
     }
   };
 

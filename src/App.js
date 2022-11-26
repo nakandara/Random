@@ -1,12 +1,12 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Topbar from "./scenes/global/Topbar";
-import Sidebar from "./scenes/global/Sidebar";
-import Dashboard from "./scenes/dashboard";
+import Topbar from "./app/global/Topbar";
+import Sidebar from "./app/global/Sidebar";
+import Dashboard from "./app/components/dashboard";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-import SignInSide from "./components/Logins/SignInSide";
-import Team from './scenes/manageTeam'
-import ProtectedRoute from "./Routes/ProtectedRoute";
+import SignInSide from "./base/Logins/SignInSide";
+import Team from './app/components/team'
+import ProtectedRoute from "./base/routes/ProtectedRoute";
 
 function App() {
   const [theme, colorMode] = useMode();
