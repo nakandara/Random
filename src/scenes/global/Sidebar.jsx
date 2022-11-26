@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useCallback, useContext } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
@@ -55,6 +56,8 @@ const Sidebar = () => {
     Loading();
   }, [ABcd?.user?.token]);
 
+  const Loading = () => {
+    const user = localStorage.getItem('user')
 
   const Loading = useCallback(() => {
     let user = JSON.parse(localStorage.getItem("user"));
@@ -265,6 +268,7 @@ const Sidebar = () => {
         </Box>
       ) : null}
     </>
+
   );
 };
 
