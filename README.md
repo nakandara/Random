@@ -68,3 +68,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### setup bugs
+
+when you instaled npm if you come Pro side bar error ,you uninstall Reaxt pro side bar and then install pro side bar "react-pro-sidebar": "^0.7.1",

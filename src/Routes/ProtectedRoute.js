@@ -1,24 +1,34 @@
 import { useContext, useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate,Outlet } from "react-router-dom";
 import { userAuthContext } from '../context/UserAuthContext'
 
 const ProtectedRoute = ({ children }) => {
+const[isLoginTopba,setIsLoginTopba] = useState(false);
+  const ABCD = useContext(userAuthContext);
 
-    const { user, setUser } = useContext(userAuthContext);
+
+  let user = JSON.parse(localStorage.getItem("user"));
 
 
-    useEffect(() => {
-        const role = localStorage.getItem('user')
-        console.log(role);
-        setUser(role)
-    }, [user]);
+  useEffect(() => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    let selectRoleuser = JSON.parse(localStorage.getItem("user"));
+    if (!user && ABCD?.user ) {
+      user = ABCD.user;
+      selectRoleuser = ABCD.user;
+      setIsLoginTopba(true)
+    }
+    if(user){
+      setIsLoginTopba(true)
+  }
+},[ABCD?.user?.token])
 
-  
-    return (
-        <div>
-           
-        </div>
-    );
+    if (!user) {
+        return <Navigate to="/login" />
+    }
+    return <Outlet/>;
+
+
 }
 
 export default ProtectedRoute
