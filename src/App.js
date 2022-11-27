@@ -5,8 +5,9 @@ import Dashboard from "./app/components/dashboard";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import SignInSide from "./base/Logins/SignInSide";
-import Team from './app/components/team'
+import School from './app/components/team/School'
 import ProtectedRoute from "./base/routes/ProtectedRoute";
+import "./styles.scss"
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -23,7 +24,7 @@ function App() {
 
               <Route element={<ProtectedRoute />}>
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/team" element={<Team />} />
+                <Route path="/school" element={<School />} />
               </Route>
 
               <Route path="/login" element={<SignInSide />} />

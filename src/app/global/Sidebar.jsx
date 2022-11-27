@@ -1,22 +1,30 @@
 import { useState, useEffect, useCallback, useContext } from "react";
-import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
+
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
-import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+
 import { userAuthContext } from "../../base/context/UserAuthContext";
+import {
+  ProSidebar,
+  Menu,
+  MenuItem,
+  SubMenu,
+  SidebarHeader,
+  SidebarFooter,
+  SidebarContent,
+} from "react-pro-sidebar";
+import {
+  FaUser,
+  FaAngleDoubleLeft,
+  FaAngleDoubleRight,
+  FaTachometerAlt,
+  FaGem,
+  FaList,
+  FaRegLaughWink,
+  FaHeart,
+} from "react-icons/fa";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -25,7 +33,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
     <MenuItem
       active={selected === title}
       style={{
-        color: colors.grey[100],
+        color: colors.blueAccent[100],
       }}
       onClick={() => setSelected(title)}
       icon={icon}
@@ -36,7 +44,13 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({
+  image,
+  collapsed,
+  toggled,
+  handleToggleSidebar,
+  handleCollapsedChange,
+}) => {
   const contexAsync = useContext(userAuthContext);
 
   const theme = useTheme();
@@ -166,208 +180,111 @@ const Sidebar = () => {
           break;
       }
     }
-  }, []);
+  }, [contexAsync?.user?.token]);
 
   return (
     <>
       {isLogin ? (
-        <Box
-          sx={{
-            "& .pro-sidebar-inner": {
-              background: `${colors.primary[400]} !important`,
-            },
-            "& .pro-icon-wrapper": {
-              backgroundColor: "transparent !important",
-            },
-            "& .pro-inner-item": {
-              padding: "5px 35px 5px 20px !important",
-            },
-            "& .pro-inner-item:hover": {
-              color: "#868dfb !important",
-            },
-            "& .pro-menu-item.active": {
-              color: "#6870fa !important",
-            },
-          }}
+        <ProSidebar
+          collapsed={collapsed}
+          toggled={toggled}
+          onToggle={handleToggleSidebar}
+          breakPoint="md"
         >
-          <ProSidebar collapsed={isCollapsed}>
-            <Menu iconShape="square">
-              {/* LOGO AND MENU ICON */}
-              <MenuItem
-                onClick={() => setIsCollapsed(!isCollapsed)}
-                icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
-                style={{
-                  margin: "10px 0 20px 0",
-                  color: colors.grey[100],
-                }}
-              >
-                {!isCollapsed && (
-                  <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    ml="15px"
+          {/* Header */}
+          <SidebarHeader>
+            <Menu iconShape="circle">
+              {collapsed ? (
+                <MenuItem
+                  icon={<FaAngleDoubleRight />}
+                  onClick={handleCollapsedChange}
+                ></MenuItem>
+              ) : (
+                <MenuItem
+                  suffix={<FaAngleDoubleLeft />}
+                  onClick={handleCollapsedChange}
+                >
+                  <div
+                    style={{
+                      padding: "9px",
+                      textTransform: "uppercase",
+                      fontWeight: "bold",
+                      fontSize: 15,
+                      letterSpacing: "1px",
+                    }}
                   >
-                    <Typography variant="h3" color={colors.grey[100]}>
-                      {role}
-                    </Typography>
-                    <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                      <MenuOutlinedIcon />
-                    </IconButton>
-                  </Box>
-                )}
-              </MenuItem>
-
-              {!isCollapsed && (
-                <Box mb="25px">
-                  <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    <img
-                      alt="profile-user"
-                      width="100px"
-                      height="100px"
-                      src={`../../assets/user.png`}
-                      style={{ cursor: "pointer", borderRadius: "50%" }}
-                    />
-                  </Box>
-                  <Box textAlign="center">
-                    <Typography
-                      variant="h2"
-                      color={colors.grey[100]}
-                      fontWeight="bold"
-                      sx={{ m: "10px 0 0 0" }}
-                    >
-                      {userName}
-                    </Typography>
-                    <Typography variant="h5" color={colors.greenAccent[500]}>
-                      VP Admin
-                    </Typography>
-                  </Box>
-                </Box>
+                    {role}
+                  </div>
+                </MenuItem>
               )}
-
-              {/* <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-                {roleSelector.map((index) => {
-                  return (
-                    <div>
-                      {
-                        <Item
-                          title={index.title}
-                          to={index.to}
-                          icon={<PeopleOutlinedIcon />}
-                          selected={selected}
-                          setSelected={setSelected}
-                        />
-                      }
-                    </div>
-                  );
-                })}
-              </Box> */}
-
-              {
-                <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-                  <Typography
-                    variant="h6"
-                    color={colors.grey[300]}
-                    sx={{ m: "15px 0 5px 20px" }}
-                  >
-                    Data
-                  </Typography>
-
-                  <Item
-                    title="Manage Team"
-                    to="/team"
-                    icon={<PeopleOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  <Item
-                    title="Contacts Information"
-                    to="/contacts"
-                    icon={<ContactsOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  <Item
-                    title="Invoices Balances"
-                    to="/invoices"
-                    icon={<ReceiptOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-
-                  <Typography
-                    variant="h6"
-                    color={colors.grey[300]}
-                    sx={{ m: "15px 0 5px 20px" }}
-                  >
-                    Pages
-                  </Typography>
-                  <Item
-                    title="Profile Form"
-                    to="/form"
-                    icon={<PersonOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  <Item
-                    title="Calendar"
-                    to="/calendar"
-                    icon={<CalendarTodayOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  <Item
-                    title="FAQ Page"
-                    to="/faq"
-                    icon={<HelpOutlineOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-
-                  <Typography
-                    variant="h6"
-                    color={colors.grey[300]}
-                    sx={{ m: "15px 0 5px 20px" }}
-                  >
-                    Charts
-                  </Typography>
-                  <Item
-                    title="Bar Chart"
-                    to="/bar"
-                    icon={<BarChartOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  <Item
-                    title="Pie Chart"
-                    to="/pie"
-                    icon={<PieChartOutlineOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  <Item
-                    title="Line Chart"
-                    to="/line"
-                    icon={<TimelineOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  <Item
-                    title="Geography Chart"
-                    to="/geography"
-                    icon={<MapOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                </Box>
-              }
             </Menu>
-          </ProSidebar>
-        </Box>
+          </SidebarHeader>
+          {/* Content */}
+          <SidebarContent>
+            <Menu iconShape="circle">
+              <MenuItem
+                icon={<FaTachometerAlt />}
+                suffix={<span className="badge red">NEW</span>}
+              >
+                Dashboard
+                <NavLink to="/dashboard" />
+              </MenuItem>
+              {/* <MenuItem icon={<FaGem />}>Components </MenuItem> */}
+              <MenuItem icon={<FaGem />}>
+                School <Link to="/school" />
+              </MenuItem>
+              <SubMenu
+                suffix={<span className="badge yellow">3</span>}
+                title={"With Suffix"}
+                icon={<FaRegLaughWink />}
+              >
+                <MenuItem>
+                  Submenu 1 <Link to="/school" />
+                </MenuItem>
+                <MenuItem>Submenu 2</MenuItem>
+                <MenuItem>Submenu 3</MenuItem>
+              </SubMenu>
+              <SubMenu
+                prefix={<span className="badge gray">3</span>}
+                title={"With Prefix"}
+                icon={<FaHeart />}
+              >
+                <MenuItem>Submenu 1</MenuItem>
+                <MenuItem>Submenu 2</MenuItem>
+                <MenuItem>Submenu 3</MenuItem>
+              </SubMenu>
+              <SubMenu title={"Multi Level"} icon={<FaList />}>
+                <MenuItem>Submenu 1 </MenuItem>
+                <MenuItem>Submenu 2 </MenuItem>
+                <SubMenu title={"Submenu 3"}>
+                  <MenuItem>Submenu 3.1 </MenuItem>
+                  <MenuItem>Submenu 3.2 </MenuItem>
+                </SubMenu>
+              </SubMenu>
+              <SubMenu title={"Multi Level"} icon={<FaList />}>
+                <MenuItem>Submenu 1 </MenuItem>
+                <MenuItem>Submenu 2 </MenuItem>
+                <SubMenu title={"Submenu 3"}>
+                  <MenuItem>Submenu 3.1 </MenuItem>
+                  <MenuItem>Submenu 3.2 </MenuItem>
+                </SubMenu>
+              </SubMenu>
+            </Menu>
+          </SidebarContent>
+          {/* Footer */}
+          <SidebarFooter style={{ textAlign: "center" }}>
+            <div className="sidebar-btn-wrapper" style={{ padding: "16px" }}>
+              <Link
+                className="sidebar-btn"
+                style={{ cursor: "pointer" }}
+                to="/profile"
+              >
+                <FaUser />
+                <span>My Account</span>
+              </Link>
+            </div>
+          </SidebarFooter>
+        </ProSidebar>
       ) : null}
     </>
   );
