@@ -59,7 +59,7 @@ export default function SignInSide() {
       const loginData = await AuthService.Login(userName, password);
 
       setUser(loginData);
-      navigate("/team");
+      navigate("/dashboard");
     } catch (err) {
       console.log(err);
       setError("Invaid User Name Or Password");

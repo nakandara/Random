@@ -24,7 +24,7 @@ function ResponsiveAppBar() {
     switch (e) {
       case "Logout":
         localStorage.removeItem("user");
-        navigate("/login");
+        navigate("/");
         window.location.reload();
         break;
       case "TEACHER":
