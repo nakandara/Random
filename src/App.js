@@ -27,7 +27,7 @@ function App() {
                 <Route path="/school" element={<School />} />
               </Route>
 
-              <Route path="/login" element={<SignInSide />} />
+              <Route path="/" element={<SignInSide />} />
 
             </Routes>
           </main>
