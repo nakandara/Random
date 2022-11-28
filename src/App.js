@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
+import { FaBars } from 'react-icons/fa';
 import Topbar from "./app/global/Topbar";
 import Sidebar from "./app/global/Sidebar";
 import Dashboard from "./app/components/dashboard";
@@ -11,13 +13,37 @@ import "./styles.scss"
 
 function App() {
   const [theme, colorMode] = useMode();
+  const [collapsed, setCollapsed] = useState(false);
+  const [image, setImage] = useState(false);
+  const [toggled, setToggled] = useState(false);
+
+  const handleCollapsedChange = () => {
+    setCollapsed(!collapsed);
+  };
+
+  const handleImageChange = (checked) => {
+    setImage(checked);
+  };
+
+  const handleToggleSidebar = (value) => {
+    setToggled(value);
+  };
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="app">
-          <Sidebar />
+        <div className="app" >
+          <Sidebar
+            image={image}
+            collapsed={collapsed}
+            toggled={toggled}
+            handleToggleSidebar={handleToggleSidebar}
+            handleCollapsedChange={handleCollapsedChange}
+          />
+          <div className="btn-toggle" onClick={() => handleToggleSidebar(true)}>
+            <FaBars />
+          </div>
           <main className="content">
             <Topbar />
             <Routes>
@@ -26,9 +52,7 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/school" element={<School />} />
               </Route>
-
-              <Route path="/" element={<SignInSide />} />
-
+              <Route path="/" element={<  SignInSide image={image} handleImageChange={handleImageChange} />} />
             </Routes>
           </main>
         </div>
