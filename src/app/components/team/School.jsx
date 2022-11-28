@@ -10,6 +10,7 @@ import Header from "../../../base/components/Header";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Logoload from "../../global/Logoload";
 
 const School = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -20,8 +21,8 @@ const School = () => {
 
   return (
     <Box m="20px">
-      <Header title="CREATE SCHOOL" subtitle="Create a New School Profile" />
-
+      <Header title="CREATE SCHOOL" subtitle="Create a New School Profile" /> 
+      <Logoload style={{margin:8, backgroundColor:"green", padding:8, height:115,width:115,borderRadius:10, }}/>
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
