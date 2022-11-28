@@ -1,16 +1,28 @@
 import React from "react";
 import { Box, Button, TextField } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../../theme";
-import { mockDataTeam } from "../../../base/data/mockData";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../../base/components/Header";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Logoload from "../../global/Logoload";
+
+const initialValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  description: "",
+  contact: "",
+  address1: "",
+  address2: "",
+  city: "",
+  Longitude:"",
+  latitude:"",
+  division:"",
+  dsDivision:"",
+  educationalDivision:"",
+  region:"",
+  airegion:""
+};
 
 const School = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -25,9 +37,7 @@ const School = () => {
       <Logoload style={{margin:8, backgroundColor:"green", padding:8, height:115,width:115,borderRadius:10, }}/>
       <Formik
         onSubmit={handleFormSubmit}
-        initialValues={initialValues}
-      
-      >
+        initialValues={initialValues}>
         {({
           values,
           errors,
@@ -264,22 +274,5 @@ const checkoutSchema = yup.object().shape({
   educationalDivision: yup.string().required("required"),
   educationalDivision: yup.string().required("required"),
 });
-const initialValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  description: "",
-  contact: "",
-  address1: "",
-  address2: "",
-  city: "",
-  Longitude:"",
-  latitude:"",
-  division:"",
-  dsDivision:"",
-  educationalDivision:"",
-  region:"",
-  airegion:""
-};
 
 export default School;
