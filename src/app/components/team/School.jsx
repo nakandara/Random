@@ -21,13 +21,18 @@ const School = () => {
 
   return (
     <Box m="20px">
-      <Header title="CREATE SCHOOL" subtitle="Create a New School Profile" /> 
-      <Logoload style={{margin:8, backgroundColor:"green", padding:8, height:115,width:115,borderRadius:10, }}/>
-      <Formik
-        onSubmit={handleFormSubmit}
-        initialValues={initialValues}
-      
-      >
+      <Header title="SCHOOL" subtitle="Create a New School Profile" />
+      <Logoload
+        style={{
+          margin: 8,
+          backgroundColor: "green",
+          padding: 8,
+          height: 115,
+          width: 115,
+          borderRadius: 10,
+        }}
+      />
+      <Formik onSubmit={handleFormSubmit} initialValues={initialValues}>
         {({
           values,
           errors,
@@ -273,13 +278,13 @@ const initialValues = {
   address1: "",
   address2: "",
   city: "",
-  Longitude:"",
-  latitude:"",
-  division:"",
-  dsDivision:"",
-  educationalDivision:"",
-  region:"",
-  airegion:""
+  Longitude: "",
+  latitude: "",
+  division: "",
+  dsDivision: "",
+  educationalDivision: "",
+  region: "",
+  airegion: "",
 };
 
 export default School;
