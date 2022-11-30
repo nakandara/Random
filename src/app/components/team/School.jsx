@@ -37,7 +37,9 @@ const School = () => {
       <Logoload style={{margin:8, backgroundColor:"green", padding:8, height:115,width:115,borderRadius:10, }}/>
       <Formik
         onSubmit={handleFormSubmit}
-        initialValues={initialValues}>
+        initialValues={initialValues}
+      
+      >
         {({
           values,
           errors,
@@ -274,5 +276,22 @@ const checkoutSchema = yup.object().shape({
   educationalDivision: yup.string().required("required"),
   educationalDivision: yup.string().required("required"),
 });
+const initialValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  description: "",
+  contact: "",
+  address1: "",
+  address2: "",
+  city: "",
+  Longitude:"",
+  latitude:"",
+  division:"",
+  dsDivision:"",
+  educationalDivision:"",
+  region:"",
+  airegion:""
+};
 
 export default School;
