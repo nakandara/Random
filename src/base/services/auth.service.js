@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Config from '../../config'
 import * as types from '../../config'
+import authHeader from "./auth-header";
 
 
 const API_URL = types.REACT_APP_BASE_URL;
@@ -22,7 +23,7 @@ const Login = async (userName, password) => {
 
     //  const {user,setUser} = useContext(userAuthContext)
     const response = await axios
-        .post(API_URL + "/login", {
+        .post(API_URL + "api/users/login", {
             userName,
             password,
         });
@@ -49,5 +50,6 @@ const authService = {
     Login,
     logout,
     getCurrentUser,
+
 };
 export default authService;

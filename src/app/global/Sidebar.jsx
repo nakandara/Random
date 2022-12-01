@@ -26,6 +26,7 @@ import {
   FaHeart,
 } from "react-icons/fa";
 
+import downloadl from "../../assets/p2.jpg";
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -189,6 +190,7 @@ const Sidebar = ({
           collapsed={collapsed}
           toggled={toggled}
           onToggle={handleToggleSidebar}
+          image={image ? false : downloadl}
           breakPoint="md"
         >
           {/* Header */}
@@ -233,6 +235,11 @@ const Sidebar = ({
               <MenuItem icon={<FaGem />}>
                 School <Link to="/school" />
               </MenuItem>
+
+              <MenuItem icon={<FaGem />}>
+                Schools <Link to="/schools" />
+              </MenuItem>
+
               <SubMenu
                 suffix={<span className="badge yellow">3</span>}
                 title={"With Suffix"}
@@ -273,7 +280,10 @@ const Sidebar = ({
           </SidebarContent>
           {/* Footer */}
           <SidebarFooter style={{ textAlign: "center" }}>
-            <div className="sidebar-btn-wrapper" style={{ padding: "16px" }}>
+            <div
+              className="sidebar-btn-wrapper"
+              style={{ padding: "16px", height: "330px" }}
+            >
               <Link
                 className="sidebar-btn"
                 style={{ cursor: "pointer" }}

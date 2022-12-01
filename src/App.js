@@ -8,8 +8,10 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import SignInSide from "./base/Logins/SignInSide";
 import School from './app/components/team/School'
+import Footer from './app/global/Footer';
 import ProtectedRoute from "./base/routes/ProtectedRoute";
 import "./styles.scss"
+import Schools from './app/components/team/Schools';
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -33,7 +35,7 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="app" >
+        <div className={`app ${toggled ? 'toggled' : ''}`} >
           <Sidebar
             image={image}
             collapsed={collapsed}
@@ -51,6 +53,7 @@ function App() {
               <Route element={<ProtectedRoute />}>
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/school" element={<School />} />
+                <Route path="/schools" element={<Schools />} />
               </Route>
               <Route path="/" element={<  SignInSide image={image} handleImageChange={handleImageChange} />} />
             </Routes>
