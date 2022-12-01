@@ -6,23 +6,7 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Logoload from "../../global/Logoload";
 
-const initialValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  description: "",
-  contact: "",
-  address1: "",
-  address2: "",
-  city: "",
-  Longitude:"",
-  latitude:"",
-  division:"",
-  dsDivision:"",
-  educationalDivision:"",
-  region:"",
-  airegion:""
-};
+
 
 const School = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
