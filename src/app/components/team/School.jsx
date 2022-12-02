@@ -29,13 +29,13 @@ const initialValues = {
   address1: "",
   address2: "",
   city: "",
-  Longitude:"",
-  latitude:"",
-  division:"",
-  dsDivision:"",
-  educationalDivision:"",
-  region:"",
-  airegion:""
+  Longitude: "",
+  latitude: "",
+  division: "",
+  dsDivision: "",
+  educationalDivision: "",
+  region: "",
+  airegion: "",
 };
 
 const School = () => {
@@ -98,7 +98,7 @@ const School = () => {
         // On autofill we get a stringified value.
         typeof value === "string" ? value.split(",") : value
       );
-    
+
       setInitial({ ...initial, [e.target.name]: personName });
     } else {
       setContactInfo3(e.target.value);
@@ -116,9 +116,6 @@ const School = () => {
   const handleSubmit = async (e) => {
     // prevents the submit button from refreshing the page
     e.preventDefault();
-
-
-
     try {
       const schoolData = await schoolservices.CreteStudent(
         initial.name,
@@ -139,7 +136,7 @@ const School = () => {
         initial.reliableWaterSourceExist,
         initial.agreementToSupportProgram
       );
- 
+
       if (schoolData.status === 201) {
         Notification.SucceMsg();
       } else {
@@ -399,56 +396,4 @@ const School = () => {
     </Box>
   );
 };
-
-const phoneRegExp =
-  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
-
-const checkoutSchema = yup.object().shape({
-  name: yup.string().required("required"),
-  // lastName: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
-  contactNo1: yup
-    .string()
-    .matches(phoneRegExp, "Phone number is not valid")
-    .required("required"),
-  contactNo2: yup
-    .string()
-    .matches(phoneRegExp, "Phone number is not valid")
-    .required("required"),
-  address1: yup.string().required("required"),
-  address2: yup.string().required("required"),
-  description: yup.string().required("required"),
-  city: yup.string().required("required"),
-  longitude: yup.string().required("required"),
-  latitude: yup.string().required("required"),
-  district: yup.string().required("required"),
-  dsDivision: yup.string().required("required"),
-  province: yup.string().required("required"),
-  airegion: yup.string().required("required"),
-  mohRegion: yup.string().required("required"),
-  eduZone: yup.string().required("required"),
-  eduDivision: yup.string().required("required"),
-  medium: yup.string().required("required"),
-});
-const initialValues = {
-  name: "",
-  description: "",
-  address1: "",
-  address2: "",
-  city: "",
-  dsDivision: "",
-  district: "",
-  province: "",
-  airegion: "",
-  mohRegion: "",
-  eduZone: "",
-  eduDivision: "",
-  contactNo1: "",
-  contactNo2: "",
-  email: "",
-  latitude: "",
-  longitude: "",
-  medium: "",
-};
-
 export default School;
