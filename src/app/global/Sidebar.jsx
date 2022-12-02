@@ -174,7 +174,7 @@ const Sidebar = ({
           // setRoleSelector(myArray);
           break;
         case "TEACHER":
-          console.log("teacher LOG");
+      
           setRole("TEACHER");
           break;
         default:

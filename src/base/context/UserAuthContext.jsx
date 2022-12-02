@@ -6,9 +6,17 @@ export const UserAuthContextProvider = ({ children }) => {
   const [token, setToken] = useState({});
   const [trueLog, setTrueLog] = useState(false);
 
-
   return (
-    <userAuthContext.Provider value={{ user, token, setToken,setUser, trueLog, setTrueLog }}>
+    <userAuthContext.Provider
+      value={{
+        user,
+        token,
+        setToken,
+        setUser,
+        trueLog,
+        setTrueLog,
+      }}
+    >
       {children}
     </userAuthContext.Provider>
   );
