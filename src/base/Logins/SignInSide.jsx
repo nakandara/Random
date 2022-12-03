@@ -60,6 +60,8 @@ export default function SignInSide() {
 
       setUser(loginData);
       navigate("/dashboard");
+
+      window.location.reload();
     } catch (err) {
       console.log(err);
       setError("Invaid User Name Or Password");

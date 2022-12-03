@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
 import { FaBars } from 'react-icons/fa';
 import Topbar from "./app/global/Topbar";
@@ -12,13 +12,17 @@ import Footer from './app/global/Footer';
 import ProtectedRoute from "./base/routes/ProtectedRoute";
 import "./styles.scss"
 import Schools from './app/components/team/Schools';
+import { userAuthContext } from './base/context/UserAuthContext';
+import MenuIcon from '@mui/icons-material/Menu';
+
 
 function App() {
   const [theme, colorMode] = useMode();
   const [collapsed, setCollapsed] = useState(false);
   const [image, setImage] = useState(false);
   const [toggled, setToggled] = useState(false);
-
+  const [isLogin, setIsLogin] = useState(false);
+  const contexAsync = useContext(userAuthContext);
   const handleCollapsedChange = () => {
     setCollapsed(!collapsed);
   };
@@ -30,6 +34,13 @@ function App() {
   const handleToggleSidebar = (value) => {
     setToggled(value);
   };
+
+  useEffect(() => {
+
+    if (window.location.pathname === "/dashboard") {
+      setIsLogin(true);
+    }
+  }, [isLogin]);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -43,9 +54,10 @@ function App() {
             handleToggleSidebar={handleToggleSidebar}
             handleCollapsedChange={handleCollapsedChange}
           />
-          <div className="btn-toggle" onClick={() => handleToggleSidebar(true)}>
-            <FaBars />
-          </div>
+          {isLogin ? <div className="btn-toggle" onClick={() => handleToggleSidebar(true)}>
+            <MenuIcon />
+          </div> : null}
+
           <main className="content">
             <Topbar />
             <Routes>

@@ -25,25 +25,24 @@ import {
   FaRegLaughWink,
   FaHeart,
 } from "react-icons/fa";
-
 import downloadl from "../../assets/p2.jpg";
-const Item = ({ title, to, icon, selected, setSelected }) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  return (
-    <MenuItem
-      active={selected === title}
-      style={{
-        color: colors.blueAccent[100],
-      }}
-      onClick={() => setSelected(title)}
-      icon={icon}
-    >
-      <Typography>{title}</Typography>
-      <Link to={to} />
-    </MenuItem>
-  );
-};
+// const Item = ({ title, to, icon, selected, setSelected }) => {
+//   const theme = useTheme();
+//   const colors = tokens(theme.palette.mode);
+//   return (
+//     <MenuItem
+//       active={selected === title}
+//       style={{
+//         color: colors.blueAccent[100],
+//       }}
+//       onClick={() => setSelected(title)}
+//       icon={icon}
+//     >
+//       <Typography>{title}</Typography>
+//       <Link to={to} />
+//     </MenuItem>
+//   );
+// };
 
 const Sidebar = ({
   image,
@@ -56,12 +55,9 @@ const Sidebar = ({
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selected, setSelected] = useState("Dashboard");
   const [isLogin, setIsLogin] = useState(false);
   const [role, setRole] = useState("");
   const [userName, setUserName] = useState("");
-  const [roleSelector, setRoleSelector] = useState("");
 
   useEffect(() => {
     if (contexAsync?.user?.token) {
