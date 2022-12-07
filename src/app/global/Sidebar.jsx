@@ -170,7 +170,6 @@ const Sidebar = ({
           // setRoleSelector(myArray);
           break;
         case "TEACHER":
-      
           setRole("TEACHER");
           break;
         default:
@@ -229,7 +228,7 @@ const Sidebar = ({
               </MenuItem>
               {/* <MenuItem icon={<FaGem />}>Components </MenuItem> */}
               <MenuItem icon={<FaGem />}>
-                School <Link to="/school" />
+                Schoolchange <Link to="/school" />
               </MenuItem>
 
               <MenuItem icon={<FaGem />}>
