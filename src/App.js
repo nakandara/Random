@@ -62,11 +62,11 @@ function App() {
             <Topbar />
             <Routes>
 
-              <Route element={<ProtectedRoute />}>
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/school" element={<School />} />
-                <Route path="/schools" element={<Schools />} />
-              </Route>
+
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/school" element={<School />} />
+              <Route path="/schools" element={<Schools />} />
+
               <Route path="/" element={<  SignInSide image={image} handleImageChange={handleImageChange} />} />
             </Routes>
           </main>
